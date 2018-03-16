@@ -35,13 +35,13 @@ public class MovieItemAdapter extends BaseAdapter {
     private Context context;
     private AdapterView.OnItemClickListener mListener;
 
-    public interface OnItemClickListener{
-        void onItemClik(int position);
-    }
-
-    public void setOnItemClickListener(AdapterView.OnItemClickListener listener){
-        mListener = listener;
-    }
+//    public interface OnItemClickListener{
+//        void onItemClik(int position);
+//    }
+//
+//    public void setOnItemClickListener(AdapterView.OnItemClickListener listener){
+//        mListener = listener;
+//    }
 
     public MovieItemAdapter(Context context){
         this.context = context;
@@ -95,7 +95,7 @@ public class MovieItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, View convertView, ViewGroup viewGroup) {
         ViewHolder holder = null;
         if(convertView == null){
             holder = new ViewHolder();
@@ -117,10 +117,8 @@ public class MovieItemAdapter extends BaseAdapter {
 //        convertView.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View view) {
-//                if(mListener != null){
-//                    int position =
 //
-//                }
+//
 //            }
 //        });
 

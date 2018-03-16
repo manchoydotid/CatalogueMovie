@@ -22,6 +22,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.os.Build.VERSION_CODES.M;
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>>{
 
     ListView listView;
@@ -45,9 +47,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                Intent x = new Intent(getApplicationContext(), DetailMovie.class);
-                x.putExtra(DetailMovie.EXTRAS_DTITLE, adapter.getItemId(position));
+                MovieItem ClickObject = (MovieItem)adapterView.getItemAtPosition(position);
+                Intent x = new Intent(MainActivity.this, DetailMovie.class);
+                x.putExtra(DetailMovie.EXTRAS_DTITLE, ClickObject.getmTitle());
+                x.putExtra(DetailMovie.EXTRAS_DDESC, ClickObject.getmDescription());
+                //Belom bisa intent Picasso
+                x.putExtra(DetailMovie.EXTRAS_DPOSTER, ClickObject.getmImageResource());
                 startActivity(x);
+
+            //Toast.makeText(MainActivity.this, "Title : "+ ClickObject.getmTitle(),Toast.LENGTH_SHORT).show();
             }
         });
 
