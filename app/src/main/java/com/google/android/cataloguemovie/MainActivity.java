@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.os.Build.VERSION_CODES.M;
+import static com.google.android.cataloguemovie.R.id.poster;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>>{
 
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Intent x = new Intent(MainActivity.this, DetailMovie.class);
                 x.putExtra(DetailMovie.EXTRAS_DTITLE, ClickObject.getmTitle());
                 x.putExtra(DetailMovie.EXTRAS_DDESC, ClickObject.getmDescription());
-                //Belom bisa intent Picasso
                 x.putExtra(DetailMovie.EXTRAS_DPOSTER, ClickObject.getmImageResource());
                 startActivity(x);
 

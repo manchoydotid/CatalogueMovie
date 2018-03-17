@@ -35,8 +35,7 @@ public class DetailMovie extends AppCompatActivity {
         String title = extras.getString("EXTRAS_DTITLE");
         String desc = extras.getString("EXTRAS_DDESC");
         String poster = extras.getString("EXTRAS_DPOSTER");
-        Picasso.with(this).load(poster).into(ivDetailPoster);
-        Log.e("EXTRAS_DPOSTER", "url poster :"+poster);
+        Picasso.with(this).load("http://image.tmdb.org/t/p/w500"+poster).into(ivDetailPoster);
         tvDetailTitle.setText(title);
         tvDetailDesc.setText(desc);
 

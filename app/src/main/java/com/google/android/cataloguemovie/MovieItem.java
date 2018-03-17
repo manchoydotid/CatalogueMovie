@@ -37,14 +37,11 @@ public class MovieItem implements Parcelable {
             String release_date = object.getString("release_date");
             String poster = object.getString("poster_path");
 
-            //release date masih default
-            //java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-
-            this.mId = object.getString("id");
-            this.mTitle = object.getString("title");
-            this.mDescription = object.getString("overview");
-            this.mReleaseDate = object.getString("release_date");
-            this.mImageResource = object.getString("poster_path");
+            this.mId = id;
+            this.mTitle = title;
+            this.mDescription = description;
+            this.mReleaseDate = release_date;
+            this.mImageResource = poster;
 
         }catch (Exception e){
             e.printStackTrace();

@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.R.attr.onClick;
 import static android.os.Build.VERSION_CODES.M;
@@ -35,13 +36,6 @@ public class MovieItemAdapter extends BaseAdapter {
     private Context context;
     private AdapterView.OnItemClickListener mListener;
 
-//    public interface OnItemClickListener{
-//        void onItemClik(int position);
-//    }
-//
-//    public void setOnItemClickListener(AdapterView.OnItemClickListener listener){
-//        mListener = listener;
-//    }
 
     public MovieItemAdapter(Context context){
         this.context = context;
@@ -113,14 +107,6 @@ public class MovieItemAdapter extends BaseAdapter {
         holder.textReleaseDate.setText(mData.get(position).getmReleaseDate());
         Picasso.with(convertView.getContext()).load("http://image.tmdb.org/t/p/w500"+mData.get
                 (position).getmImageResource()).into(holder.imgPoster);
-
-//        convertView.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//            }
-//        });
 
         return convertView;
     }
