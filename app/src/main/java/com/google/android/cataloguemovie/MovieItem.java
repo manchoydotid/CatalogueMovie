@@ -26,8 +26,6 @@ public class MovieItem implements Parcelable {
     private String mImageResource;
 
 
-
-
     public MovieItem(JSONObject object) {
 
         try{

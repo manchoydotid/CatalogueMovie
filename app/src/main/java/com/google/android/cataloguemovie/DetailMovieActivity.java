@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DetailMovie extends AppCompatActivity {
+public class DetailMovieActivity extends AppCompatActivity {
 
     static final String EXTRAS_DTITLE ="EXTRAS_DTITLE";
     static final String EXTRAS_DDESC = "EXTRAS_DDESC";

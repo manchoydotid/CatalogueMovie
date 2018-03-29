@@ -3,27 +3,22 @@ package com.google.android.cataloguemovie;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.graphics.Movie;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.os.Build.VERSION_CODES.M;
-import static com.google.android.cataloguemovie.R.id.poster;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>>{
 
@@ -31,6 +26,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     MovieItemAdapter adapter;
     EditText editSearch;
     Button btnSearch;
+
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     static final String EXTRAS_WORD ="EXTRAS_WORD";
     @Override
@@ -49,25 +48,69 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 MovieItem ClickObject = (MovieItem)adapterView.getItemAtPosition(position);
-                Intent x = new Intent(MainActivity.this, DetailMovie.class);
-                x.putExtra(DetailMovie.EXTRAS_DTITLE, ClickObject.getmTitle());
-                x.putExtra(DetailMovie.EXTRAS_DDESC, ClickObject.getmDescription());
-                x.putExtra(DetailMovie.EXTRAS_DPOSTER, ClickObject.getmImageResource());
+                Intent x = new Intent(MainActivity.this, DetailMovieActivity.class);
+                x.putExtra(DetailMovieActivity.EXTRAS_DTITLE, ClickObject.getmTitle());
+                x.putExtra(DetailMovieActivity.EXTRAS_DDESC, ClickObject.getmDescription());
+                x.putExtra(DetailMovieActivity.EXTRAS_DPOSTER, ClickObject.getmImageResource());
                 startActivity(x);
 
-            //Toast.makeText(MainActivity.this, "Title : "+ ClickObject.getmTitle(),Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        editSearch = (EditText)findViewById(R.id.edit_search);
-        btnSearch = (Button)findViewById(R.id.btn_search);
+//        editSearch = (EditText)findViewById(R.id.edit_search);
+//        btnSearch = (Button)findViewById(R.id.btn_search);
+//        btnSearch.setOnClickListener(myListener);
+//        String movie = editSearch.getText().toString();
+//        Bundle bundle = new Bundle();
+//        bundle.putString(EXTRAS_WORD, movie);
 
-        btnSearch.setOnClickListener(myListener);
+        toolbar =(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        String movie = editSearch.getText().toString();
-        Bundle bundle = new Bundle();
-        bundle.putString(EXTRAS_WORD, movie);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        viewPager =(ViewPager)findViewById(R.id.viewPager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout)findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new NowPlayingTabFragment(), "Now Playing");
+        adapter.addFragment(new UpcomingTabFragment(), "Upcoming");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
     @Override
@@ -89,21 +132,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         adapter.setData(null);
     }
 
-    View.OnClickListener myListener = new View.OnClickListener(){
-        @Override
-        public void onClick(View view) {
-            //Ini buat Button Search
-            if(view.getId()==R.id.btn_search) {
-                String movie = editSearch.getText().toString();
-                if (TextUtils.isEmpty(movie)) return;
-
-                Bundle bundle = new Bundle();
-                bundle.putString(EXTRAS_WORD, movie);
-                getLoaderManager().restartLoader(0, bundle, MainActivity.this);
-            }
-        }
-
-    };
+//    View.OnClickListener myListener = new View.OnClickListener(){
+//        @Override
+//        public void onClick(View view) {
+//            //Ini buat Button Search
+//            if(view.getId()==R.id.btn_search) {
+//                String movie = editSearch.getText().toString();
+//                if (TextUtils.isEmpty(movie)) return;
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString(EXTRAS_WORD, movie);
+//                getLoaderManager().restartLoader(0, bundle, MainActivity.this);
+//            }
+//        }
+//
+//    };
 
 
 }

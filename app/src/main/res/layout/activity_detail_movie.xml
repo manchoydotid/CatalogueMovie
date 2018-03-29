@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.google.android.cataloguemovie.DetailMovie">
+    tools:context="com.google.android.cataloguemovie.DetailMovieActivity">
 
     <ImageView
         android:layout_gravity="center_horizontal"
